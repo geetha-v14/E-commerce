@@ -1,0 +1,13 @@
+.search-input:focus {
+  box-shadow: none !important;
+  border-color: #ced4da !important;
+}
+
+.search-icon {
+  background-color: white;
+  border-right: none;
+}
+
+.search-input {
+  border-left: none;
+}

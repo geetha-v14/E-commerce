@@ -1,0 +1,17 @@
+.product-section {
+    margin-top: 40px;
+}
+
+.product-section .swiper-button-prev,
+.product-section .swiper-button-next {
+    color: #000;
+}
+
+@media (max-width: 768px) {
+
+    .product-section .swiper-button-prev,
+    .product-section .swiper-button-next {
+        display: none;
+    }
+
+}
