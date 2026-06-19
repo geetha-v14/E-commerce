@@ -6,6 +6,9 @@ import LoginPage from "../pages/Auth/LoginPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import AllCategoriesPage from "../pages/category/AllCategoriesPage";
 import CategoryProductsPage from "../pages/category/CategoryProductsPage";
+import ProductDetailsPage from "../pages/Product/ProductDetailsPage";
+import CartPage from "../pages/Cart/CartPage";
+import CheckoutPage from "../pages/Checkout/CheckoutPage";
 
 
 
@@ -21,11 +24,16 @@ const AppRoutes = () => {
 
             <Route element={<ProtectedRoute />}>
                 <Route path="/profile" element={<ProfilePage />} />
+                
             </Route>
-
+<Route path="/cart" element={<CartPage/>} />
+<Route path="/checkout" element={<CheckoutPage/>} />
             <Route path="/category" element={<AllCategoriesPage />} />
+            <Route path="/products" element={<CategoryProductsPage />}/>
             <Route path="/category/:categorySlug" element={<CategoryProductsPage />} />
             <Route path="/category/:categorySlug/:subcategorySlug" element={<CategoryProductsPage />} />
+            <Route path="/product/:slug" element={<ProductDetailsPage/>} />
+          
 
         </Routes>
     );

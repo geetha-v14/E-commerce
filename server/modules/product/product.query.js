@@ -1,85 +1,138 @@
 const buildProductQuery = (query) => {
 
-  const filters = {};
+  const filters = {
+    isPublished: true,
+  };
 
-  // if (query.category) {
 
-  //   filters.category = query.category;
+  if (query.category) {
 
-  // }
+    filters.categorySlug = query.category;
 
-  
+  }
+
+
+  if (query.subcategory) {
+
+    filters.subcategorySlug =
+      query.subcategory;
+
+  }
 
   if (query.brand) {
 
-    filters.brand = {
-      $regex: query.brand,
-      $options: "i",
-    };
+    let brands = query.brand;
+
+    // convert comma string to array
+    if (
+      typeof brands === "string"
+    ) {
+
+      brands = brands.split(",");
+
+    }
+
+    if (Array.isArray(brands)) {
+
+      filters.brand = {
+        $in: brands,
+      };
+
+    }
 
   }
 
   if (query.search) {
 
-   if (query.search) {
+    filters.$or = [
 
-  filters.$or = [
-
-    {
-      title: {
-        $regex: query.search,
-        $options: "i",
-      },
-    },
-
-    {
-      description: {
-        $regex: query.search,
-        $options: "i",
-      },
-    },
-
-    {
-      brand: {
-        $regex: query.search,
-        $options: "i",
-      },
-    },
-
-    {
-      tags: {
-        $elemMatch: {
+      {
+        title: {
           $regex: query.search,
           $options: "i",
         },
       },
-    },
 
-  ];
+      {
+        description: {
+          $regex: query.search,
+          $options: "i",
+        },
+      },
 
-}
+      {
+        brand: {
+          $regex: query.search,
+          $options: "i",
+        },
+      },
+
+      {
+        tags: {
+          $regex: query.search,
+          $options: "i",
+        },
+      },
+
+      {
+        categorySlug: {
+          $regex: query.search,
+          $options: "i",
+        },
+      },
+
+      {
+        subcategorySlug: {
+          $regex: query.search,
+          $options: "i",
+        },
+      },
+
+    ];
 
   }
 
-  if (query.minPrice || query.maxPrice) {
+  if (
+    query.minPrice ||
+    query.maxPrice
+  ) {
 
     filters.price = {};
 
     if (query.minPrice) {
+
       filters.price.$gte =
         Number(query.minPrice);
+
     }
 
     if (query.maxPrice) {
+
       filters.price.$lte =
         Number(query.maxPrice);
+
     }
 
   }
 
-  if (query.featured === "true") {
 
-    filters.featured = true;
+  if (query.discount) {
+
+    filters.discountPercentage = {
+      $gte: Number(query.discount),
+    };
+
+  }
+
+
+
+  if (
+    query.stock === "inStock"
+  ) {
+
+    filters.stock = {
+      $gt: 0,
+    };
 
   }
 

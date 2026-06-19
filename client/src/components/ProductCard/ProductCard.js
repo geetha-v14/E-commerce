@@ -6,14 +6,15 @@ import {
 
 import {
     FaStar,
-    FaShoppingCart,
+
     FaHeart,
 } from "react-icons/fa";
 
 import "./ProductCard.css";
+import CartButton from "../CartButton/CartButton";
 
 
-const ProductCard = ({product,}) => {
+const ProductCard = ({ product, }) => {
 
     if (!product) {
 
@@ -26,8 +27,7 @@ const ProductCard = ({product,}) => {
 
     return (
 
-        <div className="card product-card border-0 shadow-sm rounded-4 h-100">
-
+        <div className="card product-card border-0 h-100">
             {/* Image */}
             <div className="product-image-wrapper position-relative">
 
@@ -43,16 +43,6 @@ const ProductCard = ({product,}) => {
 
                 </Link>
 
-                {/* Discount */}
-                {product.discountPercentage > 0 && (
-
-                    <span className="discount-badge">
-
-                        {product.discountPercentage}% OFF
-
-                    </span>
-
-                )}
 
                 {/* Wishlist */}
                 <button className="wishlist-btn">
@@ -64,7 +54,7 @@ const ProductCard = ({product,}) => {
             </div>
 
             {/* Body */}
-            <div className="card-body d-flex flex-column">
+            <div className="card-body d-flex flex-column w-100">
 
                 {/* Brand */}
                 <p className="product-brand mb-1">
@@ -79,7 +69,7 @@ const ProductCard = ({product,}) => {
                     className="text-decoration-none text-dark"
                 >
 
-                    <h6 className="product-title">
+                    <h6 className="product-title-card">
 
                         {product.title}
 
@@ -88,7 +78,7 @@ const ProductCard = ({product,}) => {
                 </Link>
 
                 {/* Rating */}
-                <div className="d-flex align-items-center gap-1 mb-2">
+                {/* <div className="d-flex align-items-center gap-1 mb-2">
 
                     <FaStar
                         className="text-warning"
@@ -103,26 +93,40 @@ const ProductCard = ({product,}) => {
                         ({product.numReviews || 0})
                     </small>
 
-                </div>
+                </div> */}
 
                 {/* Price */}
-                <div className="d-flex align-items-center gap-2 mb-3">
+                <div className="d-flex align-items-center gap-2 mb-1 product-price">
 
-                    <h6 className="mb-0 fw-bold text-primary">
 
-                        ₹{product.salePrice || product.price}
-
-                    </h6>
 
                     {product.salePrice > 0 && (
 
-                        <small className="text-muted text-decoration-line-through">
+                        <small className="text-muted text-decoration-line-through ">
 
                             ₹{product.price}
 
                         </small>
 
                     )}
+                    <h6 className="mb-0 fw-bold">
+
+                        ₹{product.salePrice || product.price}
+
+                    </h6>
+
+                      {/* Discount */}
+                    {product.discountPercentage > 0 && (
+
+                        <span className="discount-badge">
+
+                            {product.discountPercentage}% off
+
+                        </span>
+
+                    )}
+
+
 
                 </div>
 
@@ -146,16 +150,10 @@ const ProductCard = ({product,}) => {
                 )}
 
                 {/* Add To Cart */}
-                <button
-                    className="btn btn-primary mt-auto rounded-pill"
-                    disabled={product.stock <= 0}
-                >
+                <CartButton
 
-                    <FaShoppingCart className="me-2" />
+                    product={product} />
 
-                    Add to Cart
-
-                </button>
 
             </div>
 

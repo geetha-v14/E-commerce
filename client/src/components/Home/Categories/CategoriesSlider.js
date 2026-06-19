@@ -94,6 +94,7 @@ const CategoriesSlider = () => {
             fw-semibold
             view-all-btn
           "
+          style={{color:"black"}}
         >
           View All
         </Link>

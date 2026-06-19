@@ -2,11 +2,10 @@ import React from "react";
 
 import "./MainLayout.css";
 
-import Header
-from "../../components/Header/Header";
+import Header from "../../components/Header/Header";
 
-// import SearchBar
-// from "../../components/Header/SearchBar";
+import Footer from "../../components/Footer/Footer";
+
 
 
 const MainLayout = ({
@@ -19,13 +18,13 @@ const MainLayout = ({
 
       <Header />
 
-      {/* <SearchBar /> */}
-
       <main className="main-container">
 
         {children}
 
       </main>
+
+      <Footer/>
 
     </>
 

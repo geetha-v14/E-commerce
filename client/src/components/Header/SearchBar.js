@@ -10,81 +10,61 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
-
 const SearchBar = () => {
 
   const navigate =
     useNavigate();
 
-  const [keyword,
-    setKeyword]
-      = useState("");
-
+  const [keyword, setKeyword] =
+    useState("");
 
   const handleSearch =
     (e) => {
 
       e.preventDefault();
 
-      if (
-        keyword.trim()
-      ) {
+      if (keyword.trim()) {
 
         navigate(
-          `/products?search=${keyword}`
+          `/products?search=${keyword.trim()}`
         );
 
       }
 
-  };
-
+    };
 
   return (
 
-    <div className="bg-white py-3 border-bottom">
+    <form
+      className="flex-grow-1 search-form"
+      onSubmit={handleSearch}
+    >
 
-      <div className="container-fluid px-lg-5 px-3">
+      <input
+        type="text"
+        className="form-control search-input rounded-pill"
+        placeholder="Search products..."
+        value={keyword}
+        onChange={(e) =>
+          setKeyword(
+            e.target.value
+          )
+        }
+      />
 
-        <form
-          onSubmit={handleSearch}
-        >
+      <button
+        type="submit"
+        className="search-btn"
+      >
 
-          <div className="input-group">
+        <FaSearch />
 
-             <button
-              className="btn btn-dark px-4"
-            >
+      </button>
 
-              <FaSearch />
+    </form>
 
-            </button>
-
-            <input
-              type="text"
-
-              placeholder="Search products..."
-
-              className="form-control form-control-lg"
-
-              value={keyword}
-
-              onChange={(e) =>
-                setKeyword(
-                  e.target.value
-                )
-              }
-            />
-
-           
-
-          </div>
-
-        </form>
-
-      </div>
-
-    </div>
   );
+
 };
 
 export default SearchBar;

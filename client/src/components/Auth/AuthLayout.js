@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const AuthLayout = ({
   title,
@@ -8,14 +9,14 @@ const AuthLayout = ({
 
   return (
 
-    <div className="container-fluid bg-light min-vh-100 d-flex align-items-center justify-content-center">
+    <div className="container-fluid bg-light min-vh-100 d-flex align-items-center justify-content-center ">
 
       <div
-        className="card shadow border-0 p-4"
+        className="card border-0 shadow p-4"
         style={{
           width: "100%",
           maxWidth: "450px",
-          borderRadius: "20px",
+         
         }}
       >
 
@@ -27,11 +28,13 @@ const AuthLayout = ({
             className="text-decoration-none"
           >
 
-            <h2 className="fw-bold text-dark">
+            <img
+              src={logo}
+              alt="logo"
+              className="header-logo"
+            />
 
-              MegaMart
 
-            </h2>
 
           </Link>
 

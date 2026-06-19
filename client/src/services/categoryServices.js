@@ -9,8 +9,7 @@ export const getMainCategories  = async () => {
   return response.data.data;
 };
 
-export const getCategoryBySlug =
-  async (slug) => {
+export const getCategoryBySlug = async (slug) => {
 
     const response =  await api.get(
         `/categories/slug/${slug}`
@@ -23,7 +22,7 @@ export const getCategoryBySlug =
 export const getSubcategories = async (parentId) => {
 
     const response = await api.get(
-        `categories/subcategories/${parentId}`
+        `/categories/subcategories/${parentId}`
       );
 
     return response.data.data;

@@ -10,10 +10,9 @@ import { FreeMode } from "swiper/modules";
 import { Link } from "react-router-dom";
 
 import "swiper/css";
-
 import "swiper/css/free-mode";
 
-import "./CategoryProductsPage.css";
+import "./SubcategorySlider.css";
 
 const SubcategorySlider = ({
   categorySlug,
@@ -29,9 +28,55 @@ const SubcategorySlider = ({
         modules={[FreeMode]}
         freeMode={true}
         spaceBetween={16}
-        slidesPerView="auto"
+        slidesPerView={5}
         className="subcategory-swiper"
+        breakpoints={{
+          0: {
+            slidesPerView: 2.2,
+          },
+
+          576: {
+            slidesPerView: 3,
+          },
+
+          768: {
+            slidesPerView: 4,
+          },
+
+          992: {
+            slidesPerView: 5,
+          },
+        }}
       >
+
+        {/* ALL CATEGORY */}
+
+        <SwiperSlide className="subcategory-slide">
+
+          <Link
+            to={`/category/${categorySlug}`}
+            className="text-decoration-none"
+          >
+
+            <div
+              className={`subcategory-card ${
+                !activeSubcategory
+                  ? "active-subcategory"
+                  : ""
+              }`}
+            >
+
+              <div className="subcategory-all">
+                All
+              </div>
+
+            </div>
+
+          </Link>
+
+        </SwiperSlide>
+
+        {/* SUBCATEGORIES */}
 
         {subcategories.map((subcategory) => (
 

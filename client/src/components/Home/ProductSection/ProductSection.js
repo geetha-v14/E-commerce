@@ -46,7 +46,8 @@ const ProductSection = ({
 
                 <Link
                     to="/products"
-                    className="text-decoration-none fw-semibold"
+                    className="text-decoration-none fw-semibold "
+                    style={{color:"black"}}
                 >
                     View All
                 </Link>

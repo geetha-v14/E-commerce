@@ -41,9 +41,6 @@ const HomePage = () => {
             const data =
                 await getHomepageProducts();
 
-                 console.log(data);
-
-
             setHomepageData(data);
 
         } catch (error) {

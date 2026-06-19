@@ -26,6 +26,7 @@ const createProduct = asyncHandler(async (req, res) => {
     title,
     description,
     category,
+    subcategory,
     price,
     stock,
     brand,
@@ -43,6 +44,17 @@ const createProduct = asyncHandler(async (req, res) => {
     );
 
   }
+
+  const subcategoryExists = await Category.findById(subcategory);
+  if (!subcategoryExists) {
+
+    throw new ApiError(
+      404,
+      "SubCategory not found"
+    );
+
+  }
+
 
   if (
     salePrice &&
@@ -65,7 +77,7 @@ const createProduct = asyncHandler(async (req, res) => {
 
       const uploaded =
         await uploadToCloudinary(
-          file.buffer,
+          file.path,
           "megamart/products"
         );
 
@@ -89,6 +101,14 @@ const createProduct = asyncHandler(async (req, res) => {
     title,
     description,
     category,
+    subcategory,
+
+    categorySlug:
+      categoryExists.slug,
+
+    subcategorySlug:
+      subcategoryExists?.slug || "",
+
     brand,
     price: Number(price),
 
@@ -120,47 +140,42 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const limit = Number(req.query.limit) || 10;
 
-  const sort = req.query.sort || "-createdAt";
+  let sort = "-createdAt";
+
+  if (req.query.sort === "priceLow") {
+    sort = { price: 1 };
+  }
+
+  if (req.query.sort === "priceHigh") {
+    sort = { price: -1 };
+  }
+
+  if (req.query.sort === "newest") {
+    sort = { createdAt: -1 };
+  }
+
+  if (req.query.sort === "rating") {
+    sort = { ratings: -1 };
+  }
+
+  if (req.query.sort === "discount") {
+    sort = { discountPercentage: -1 };
+  }
 
   const filters = buildProductQuery(req.query);
 
-  if (req.query.category) {
+  const {
+    search,
+  } = req.query;
 
-  const category =
-    await Category.findOne({
-      slug: req.query.category,
-    });
 
-  if (category) {
-
-    filters.category =
-      category._id;
-
-  }
-
-}
-
-if (req.query.subcategory) {
-
-  const subcategory =
-    await Category.findOne({
-      slug: req.query.subcategory,
-    });
-
-  if (subcategory) {
-
-    filters.category =
-      subcategory._id;
-
-  }
-
-}
 
   const data = await getProductsService({
     filters,
     page,
     limit,
     sort,
+    search
   });
 
   return res.status(200).json(
@@ -213,7 +228,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     for (const file of req.files) {
 
       const uploaded = await uploadToCloudinary(
-        file.buffer,
+        file.path,
         "megamart/products"
       );
 
@@ -268,9 +283,32 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 
   updatedData.discountPercentage = calculateDiscount(
-      finalPrice,
-      finalSalePrice
-    );
+    finalPrice,
+    finalSalePrice
+  );
+
+  if (req.body.category) {
+
+    const categoryData =
+      await Category.findById(
+        req.body.category
+      );
+
+    updatedData.categorySlug =
+      categoryData.slug;
+
+  }
+  if (req.body.subcategory) {
+
+    const subcategoryData =
+      await Category.findById(
+        req.body.subcategory
+      );
+
+    updatedData.subcategorySlug =
+      subcategoryData.slug;
+
+  }
 
   const updatedProduct =
     await Product.findByIdAndUpdate(
@@ -314,7 +352,7 @@ const getSingleProduct = asyncHandler(async (req, res) => {
 
   const relatedProducts = await getRelatedProductsService({
 
-    categoryId: product.category._id,
+    subcategoryId: product.subcategory._id,
 
     currentProductId: product._id,
 
@@ -455,6 +493,40 @@ const getHomepageProducts = asyncHandler(async (req, res) => {
 
 });
 
+const getRelatedProducts =
+  async (req, res) => {
+
+    try {
+
+      const {
+        categoryId,
+        productId,
+      } = req.params;
+
+      const products =
+        await getRelatedProductsService({
+          categoryId,
+          currentProductId:
+            productId,
+        });
+
+      res.status(200).json({
+        success: true,
+        products,
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message:
+          error.message,
+      });
+
+    }
+
+  };
+
 
 module.exports = {
   createProduct,
@@ -463,4 +535,5 @@ module.exports = {
   getSingleProduct,
   addProductReview,
   getHomepageProducts,
+  getRelatedProducts,
 };

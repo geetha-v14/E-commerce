@@ -1,25 +1,29 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React from "react";
 
 import {
   useParams,
+  useSearchParams,
 } from "react-router-dom";
 
-
-
-
-import SubcategorySlider from "./SubcategorySlider";
-
 import {
-  getCategoryBySlug,
-  getSubcategories,
-} from "../../services/categoryServices";
+  FiFilter,
+} from "react-icons/fi";
 
+import MainLayout from "../../layouts/MainLayout/MainLayout";
 
-import ProductCard from "../../components/ProductCard/ProductCard";
-import { getProducts } from "../../services/productService";
+import SubcategorySlider from "../../components/Category/SubcategorySlider";
+
+import FiltersSidebar from "../../components/Category/FiltersSidebar";
+
+import ProductsTopbar from "../../components/Category/ProductsTopbar";
+
+import ProductsGrid from "../../components/Category/ProductsGrid";
+
+import Pagination from "../../components/Category/Pagination";
+
+import useCategoryProducts from "../../hooks/useCategoryProducts";
+
+import "./CategoryProductsPage.css";
 
 const CategoryProductsPage = () => {
 
@@ -28,152 +32,140 @@ const CategoryProductsPage = () => {
     subcategorySlug,
   } = useParams();
 
-  const [
-    category,
-    setCategory,
-  ] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [
-    subcategories,
-    setSubcategories,
-  ] = useState([]);
+  const search = searchParams.get("search") || "";
 
-  const [
+  const {
     products,
-    setProducts,
-  ] = useState([]);
-
-  const [
+    subcategories,
+    brands,
     loading,
-    setLoading,
-  ] = useState(true);
-
-  useEffect(() => {
-
-    fetchPageData();
-
-  }, [categorySlug, subcategorySlug]);
-
-  const fetchPageData = async () => {
-
-    try {
-
-      setLoading(true);
-
-      // category details
-      const categoryData =
-        await getCategoryBySlug(
-          categorySlug
-        );
-
-      setCategory(categoryData);
-
-      // subcategories
-      const subcategoryData =
-        await getSubcategories(
-          categoryData._id
-        );
-
-      setSubcategories(
-        subcategoryData
-      );
-
-      // products
-      const params =
-        subcategorySlug
-          ? {
-              subcategory:
-                subcategorySlug,
-            }
-          : {
-              category:
-                categorySlug,
-            };
-
-      const productsData =
-        await getProducts(params);
-
-      setProducts(
-        productsData.products
-      );
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-
-    }
-
-  };
-
-  if (loading) {
-
-    return (
-
-      
-        <div className="container py-5">
-
-          <h4>
-            Loading products...
-          </h4>
-
-        </div>
-
-     
-
-    );
-
-  }
+    pagination,
+    showFilters,
+    setShowFilters,
+    openFilters,
+    toggleFilterSection,
+    selectedBrands,
+    stock,
+    discount,
+    sort,
+    updateQuery,
+    handlePageChange,
+  } = useCategoryProducts({
+    categorySlug,
+    subcategorySlug,
+    searchParams,
+    setSearchParams,
+    search,
+  });
 
   return (
 
-   
+    <MainLayout>
 
-      <div className="container py-4">
+      <div className="category-products-page container">
 
-        <h2 className="fw-bold text-center mb-4">
+        <div className="breadcrumbs">
 
-          {category?.name}
+          Home / {
+            search
+              ? "Search"
+              : categorySlug
+          }
 
-        </h2>
+          {subcategorySlug &&
+            ` / ${subcategorySlug}`}
+
+        </div>
+
+        <div className="category-header">
+
+          <h1 className="category-title">
+
+            {
+              search
+                ? `Search Results for "${search}"`
+                : subcategorySlug || categorySlug
+            }
+
+          </h1>
+
+        </div>
 
         <SubcategorySlider
           categorySlug={categorySlug}
           subcategories={subcategories}
-          activeSubcategory={
-            subcategorySlug
-          }
+          activeSubcategory={subcategorySlug}
         />
 
-        <div className="row g-4 mt-3">
+        <div className="mobile-actions">
 
-          {products.map((product) => (
+          <button
+            className="mobile-btn"
+            onClick={() =>
+              setShowFilters(true)
+            }
+          >
 
-            <div
-              key={product._id}
-              className="
-                col-6
-                col-md-4
-                col-lg-3
-              "
-            >
+            <FiFilter />
 
-              <ProductCard
-                product={product}
-              />
+            Filters
 
-            </div>
+          </button>
 
-          ))}
+        </div>
+
+        <div className="category-layout">
+
+          <FiltersSidebar
+            showFilters={showFilters}
+            setShowFilters={
+              setShowFilters
+            }
+            openFilters={openFilters}
+            toggleFilterSection={
+              toggleFilterSection
+            }
+            brands={brands}
+            selectedBrands={
+              selectedBrands
+            }
+            updateQuery={updateQuery}
+            stock={stock}
+            discount={discount}
+            setSearchParams={
+              setSearchParams
+            }
+          />
+
+          <section className="products-content">
+
+            <ProductsTopbar
+              pagination={pagination}
+              sort={sort}
+              updateQuery={updateQuery}
+            />
+
+            <ProductsGrid
+              loading={loading}
+              products={products}
+            />
+
+            <Pagination
+              pagination={pagination}
+              handlePageChange={
+                handlePageChange
+              }
+            />
+
+          </section>
 
         </div>
 
       </div>
 
-   
+    </MainLayout>
 
   );
 

@@ -44,12 +44,12 @@
   border-radius: 20px;
   overflow: hidden;
   transition: 0.3s ease;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  /* box-shadow: 0 2px 12px rgba(0,0,0,0.08); */
 }
 
-.subcategory-card:hover {
+/* .subcategory-card:hover {
   transform: translateY(-5px);
-}
+} */
 
 .subcategory-image {
   width: 100%;

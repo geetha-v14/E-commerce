@@ -6,6 +6,8 @@ const variantSchema = new mongoose.Schema(
   {
     size: String,
 
+    material: String,
+
     color: String,
 
     stock: {
@@ -85,6 +87,22 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: true,
+    },
+
+    subcategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+
+    },
+
+    categorySlug: {
+      type: String,
+      lowercase: true,
+    },
+
+    subcategorySlug: {
+      type: String,
+      lowercase: true,
     },
 
     images: [

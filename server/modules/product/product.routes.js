@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { createProduct, getProducts, updateProduct, getSingleProduct, addProductReview,
-  getHomepageProducts,
+  getHomepageProducts, getRelatedProducts
 } = require("./product.controller");
 
 const authMiddleware = require("../../middleware/authMiddleware");
@@ -29,6 +29,11 @@ router.post(
 );
 
 router.get("/", getProducts);
+
+router.get(
+  "/related/:categoryId/:productId",
+  getRelatedProducts
+);
 
 router.post("/:id/reviews", authMiddleware, addProductReview);
 

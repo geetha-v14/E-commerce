@@ -15,6 +15,7 @@ const getProductsService = async ({
 
     const products = await Product.find(filters)
         .populate("category", "name slug")
+        .populate("subcategory", "name slug")
         .sort(sort)
         .skip((page - 1) * limit)
         .limit(limit);
@@ -43,29 +44,31 @@ const getSingleProductService = async (slug) => {
       .populate(
         "category",
         "name slug"
-      );
+      )
+      .populate("subcategory", "name slug");
 
 };
 
-const getRelatedProductsService =  async ({
-    categoryId,
-    currentProductId,
-  }) => {
+const getRelatedProductsService = async ({
+  categoryId,
+  currentProductId,
+}) => {
 
-    return await Product.find({
-      category: categoryId,
+  return await Product.find({
 
-      _id: {
-        $ne: currentProductId,
-      },
+     category: categoryId,
 
-      isPublished: true,
-    })
-      .limit(8)
-      .sort("-createdAt");
+    _id: {
+      $ne: currentProductId,
+    },
+
+    isPublished: true,
+
+  })
+    .limit(8)
+    .sort("-createdAt");
 
 };
-
 
 
 
