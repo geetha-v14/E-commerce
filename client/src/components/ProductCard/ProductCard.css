@@ -1,20 +1,20 @@
 .product-card {
     overflow: hidden;
-    
     background: #fff;
+    border-radius: 0 !important;
 }
 
 
 .product-image-wrapper {
-  
     overflow: hidden;
+    aspect-ratio: 1;
 }
 
 .product-image {
     width: 100%;
-    height: 240px;
+    height: 100%;
     object-fit: cover;
-  
+    display: block;
 }
 
 
@@ -23,8 +23,8 @@
     color: #dc3545;
     font-size: 14px;
     font-weight: 600;
-   
-   
+
+
 }
 
 .wishlist-btn {
@@ -53,28 +53,25 @@
     font-size: 14px;
 }
 
-  .product-title-card {
+.product-title-card {
     font-size: 15px;
     font-weight: 600;
     min-height: 20px;
     line-height: 1.5;
 }
-.product-price{
 
-        display: flex;
-        flex-wrap: wrap;
-    }
+.product-price {
+
+    display: flex;
+    flex-wrap: wrap;
+}
 
 
 @media (max-width: 768px) {
-
-    .product-image {
-        height: 180px;
-    }
 
     .product-card .product-title {
         font-size: 14px;
         min-height: 25px;
     }
-    
+
 }

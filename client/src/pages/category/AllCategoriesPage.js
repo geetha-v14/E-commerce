@@ -5,6 +5,8 @@ import React, {
 
 import { Link } from "react-router-dom";
 
+import Spinner from "../../components/Loader/Spinner";
+
 import {
   getMainCategories,
   getSubcategories,
@@ -75,19 +77,7 @@ const AllCategoriesPage = () => {
   };
 
   if (loading) {
-
-    return (
-
-      <div className="container py-5">
-
-        <h4>
-          Loading categories...
-        </h4>
-
-      </div>
-
-    );
-
+    return <Spinner />;
   }
 
   return (

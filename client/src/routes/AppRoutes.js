@@ -1,14 +1,18 @@
 import { Routes, Route, } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import ProtectedRoute from "../routes/ProtectedRoutes";
-import HomePage from "../pages/Home/HomePage";
-import RegisterPage from "../pages/Auth/RegisterPage";
-import LoginPage from "../pages/Auth/LoginPage";
-import ProfilePage from "../pages/Profile/ProfilePage";
-import AllCategoriesPage from "../pages/category/AllCategoriesPage";
-import CategoryProductsPage from "../pages/category/CategoryProductsPage";
-import ProductDetailsPage from "../pages/Product/ProductDetailsPage";
-import CartPage from "../pages/Cart/CartPage";
-import CheckoutPage from "../pages/Checkout/CheckoutPage";
+import Spinner from "../components/Loader/Spinner";
+
+// Lazy load all pages
+const HomePage = lazy(() => import("../pages/Home/HomePage"));
+const RegisterPage = lazy(() => import("../pages/Auth/RegisterPage"));
+const LoginPage = lazy(() => import("../pages/Auth/LoginPage"));
+const ProfilePage = lazy(() => import("../pages/Profile/ProfilePage"));
+const AllCategoriesPage = lazy(() => import("../pages/category/AllCategoriesPage"));
+const CategoryProductsPage = lazy(() => import("../pages/category/CategoryProductsPage"));
+const ProductDetailsPage = lazy(() => import("../pages/Product/ProductDetailsPage"));
+const CartPage = lazy(() => import("../pages/Cart/CartPage"));
+const CheckoutPage = lazy(() => import("../pages/Checkout/CheckoutPage"));
 
 
 
@@ -18,22 +22,26 @@ const AppRoutes = () => {
 
         <Routes>
 
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<Suspense fallback={<Spinner />}><HomePage /></Suspense>} />
+            <Route path="/register" element={<Suspense fallback={<Spinner />}><RegisterPage /></Suspense>} />
+            <Route path="/login" element={<Suspense fallback={<Spinner />}><LoginPage /></Suspense>} />
+            
 
             <Route element={<ProtectedRoute />}>
-                <Route path="/profile" element={<ProfilePage />} />
-                
+                <Route path="/profile" element={<Suspense fallback={<Spinner />}><ProfilePage /></Suspense>} />
+
             </Route>
-<Route path="/cart" element={<CartPage/>} />
-<Route path="/checkout" element={<CheckoutPage/>} />
-            <Route path="/category" element={<AllCategoriesPage />} />
-            <Route path="/products" element={<CategoryProductsPage />}/>
-            <Route path="/category/:categorySlug" element={<CategoryProductsPage />} />
-            <Route path="/category/:categorySlug/:subcategorySlug" element={<CategoryProductsPage />} />
-            <Route path="/product/:slug" element={<ProductDetailsPage/>} />
-          
+
+
+
+            <Route path="/cart" element={<Suspense fallback={<Spinner />}><CartPage /></Suspense>} />
+            <Route path="/checkout" element={<Suspense fallback={<Spinner />}><CheckoutPage /></Suspense>} />
+            <Route path="/category" element={<Suspense fallback={<Spinner />}><AllCategoriesPage /></Suspense>} />
+            <Route path="/products" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
+            <Route path="/category/:categorySlug" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
+            <Route path="/category/:categorySlug/:subcategorySlug" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
+            <Route path="/product/:slug" element={<Suspense fallback={<Spinner />}><ProductDetailsPage /></Suspense>} />
+
 
         </Routes>
     );

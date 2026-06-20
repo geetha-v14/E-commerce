@@ -10,6 +10,8 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
+ import "./Search.css";
+
 const SearchBar = () => {
 
   const navigate =
@@ -42,7 +44,8 @@ const SearchBar = () => {
 
       <input
         type="text"
-        className="form-control search-input rounded-pill"
+        className="form-control search-input rounded-pill "
+        
         placeholder="Search products..."
         value={keyword}
         onChange={(e) =>

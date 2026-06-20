@@ -1,0 +1,12 @@
+.search-form {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  overflow: hidden;
+  background: white;
+}
+
+.search-form:focus-within {
+  outline: 2px solid #000;
+  outline-offset: 3px;
+}

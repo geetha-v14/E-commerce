@@ -12,6 +12,8 @@ import ProductAccordion from "../../components/ProductDetails/ProductAccordion";
 
 import RelatedProducts from "../../components/ProductDetails/RelatedProducts";
 
+import Spinner from "../../components/Loader/Spinner";
+
 import useProductDetails from "../../hooks/useProductDetails";
 
 import "./ProductDetailsPage.css";
@@ -32,21 +34,7 @@ const ProductDetailsPage = () => {
 
 
   if (loading) {
-
-    return (
-
-      <MainLayout>
-
-        <div className="product-loading">
-
-          Loading product...
-
-        </div>
-
-      </MainLayout>
-
-    );
-
+    return <Spinner />;
   }
 
 

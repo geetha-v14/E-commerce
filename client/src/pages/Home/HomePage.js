@@ -11,6 +11,8 @@ import CategoriesSlider from "../../components/Home/Categories/CategoriesSlider"
 
 import ProductSection from "../../components/Home/ProductSection/ProductSection";
 
+import Spinner from "../../components/Loader/Spinner";
+
 import { getHomepageProducts } from "../../services/homepageService";
 
 
@@ -57,17 +59,7 @@ const HomePage = () => {
 
 
     if (loading) {
-
-        return (
-            <MainLayout>
-
-                <h4>
-                    Loading...
-                </h4>
-
-            </MainLayout>
-        );
-
+        return <Spinner />;
     }
 
 

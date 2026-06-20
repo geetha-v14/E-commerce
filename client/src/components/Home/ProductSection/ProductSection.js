@@ -58,25 +58,28 @@ const ProductSection = ({
             <Swiper
                 modules={[Navigation]}
                 navigation
-                spaceBetween={20}
+                spaceBetween={15}
                 breakpoints={{
-
                     320: {
                         slidesPerView: 2,
+                        spaceBetween: 12,
                     },
-
-                    576: {
+                    640: {
                         slidesPerView: 2,
+                        spaceBetween: 15,
                     },
-
                     768: {
                         slidesPerView: 3,
+                        spaceBetween: 18,
                     },
-
                     1024: {
-                        slidesPerView: 5,
+                        slidesPerView: 4,
+                        spaceBetween: 20,
                     },
-
+                    1440: {
+                        slidesPerView: 5,
+                        spaceBetween: 20,
+                    },
                 }}
             >
 
