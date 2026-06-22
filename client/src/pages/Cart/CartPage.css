@@ -6,6 +6,8 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 24px;
+    
+
 }
 
 .cart-left,
@@ -18,7 +20,6 @@
 
 .cart-header {
     display: flex;
-    
     gap: 10px;
     align-items: center;
     margin-bottom: 24px;

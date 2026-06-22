@@ -79,18 +79,20 @@ const CartPage = () => {
 
                     </div>
 
+                    {cartItems.length > 0 && (
+                        <div className="cart-right">
 
-                    <div className="cart-right">
+                            <OrderSummary
+                                cartItems={cartItems}
+                                subtotal={subtotal}
+                                shipping={shipping}
+                                total={total}
+                                buttonText="Proceed To Checkout"
+                                buttonLink="/checkout"
+                            />
 
-                        <OrderSummary
-                            cartItems={cartItems}
-                            subtotal={subtotal}
-                            shipping={shipping}
-                            total={total}
-                            buttonText="Proceed To Checkout"
-                            buttonLink="/checkout"
-                        />
-                    </div>
+                        </div>
+                    )}
 
                 </div>
 

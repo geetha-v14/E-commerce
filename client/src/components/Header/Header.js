@@ -97,9 +97,9 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                 >
 
-                  <FaUser size={20} />
+                  <FaUser size={20}  className="mb-1"/>
 
-                  <small>
+                  <small style={{"textTransform" : "capitalize"}}>
                     {user?.name}
                   </small>
 
