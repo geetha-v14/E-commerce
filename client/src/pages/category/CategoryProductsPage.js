@@ -9,7 +9,7 @@ import {
   FiFilter,
 } from "react-icons/fi";
 
-import MainLayout from "../../layouts/MainLayout/MainLayout";
+import UserLayout from "../../layouts/User/UserLayout";
 
 import SubcategorySlider from "../../components/Category/SubcategorySlider";
 
@@ -62,7 +62,7 @@ const CategoryProductsPage = () => {
 
   return (
 
-    <MainLayout>
+    <UserLayout>
 
       <div className="category-products-page container">
 
@@ -165,7 +165,7 @@ const CategoryProductsPage = () => {
 
       </div>
 
-    </MainLayout>
+    </UserLayout>
 
   );
 

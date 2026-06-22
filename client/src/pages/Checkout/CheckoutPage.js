@@ -5,7 +5,7 @@ import {
   useSelector,
 } from "react-redux";
 
-import MainLayout from "../../layouts/MainLayout/MainLayout";
+import UserLayout from "../../layouts/User/UserLayout";
 
 import {
   saveShippingAddress,
@@ -88,7 +88,7 @@ const CheckoutPage = () => {
 
   return (
 
-    <MainLayout>
+    <UserLayout>
 
       <div className="checkout-page container">
 
@@ -140,7 +140,7 @@ const CheckoutPage = () => {
 
       </div>
 
-    </MainLayout>
+    </UserLayout>
 
   );
 

@@ -31,7 +31,7 @@ const AuthLayout = ({
             <img
               src={logo}
               alt="logo"
-              className="header-logo"
+              style={{ width: "150px" }}
             />
 
 

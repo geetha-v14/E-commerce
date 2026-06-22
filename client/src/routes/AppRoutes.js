@@ -14,6 +14,8 @@ const ProductDetailsPage = lazy(() => import("../pages/Product/ProductDetailsPag
 const CartPage = lazy(() => import("../pages/Cart/CartPage"));
 const CheckoutPage = lazy(() => import("../pages/Checkout/CheckoutPage"));
 
+const AdminRoutes = lazy(() => import("../routes/Admin/AdminRoutes"));
+
 
 
 const AppRoutes = () => {
@@ -42,6 +44,8 @@ const AppRoutes = () => {
             <Route path="/category/:categorySlug/:subcategorySlug" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
             <Route path="/product/:slug" element={<Suspense fallback={<Spinner />}><ProductDetailsPage /></Suspense>} />
 
+
+            <Route path="/admin/*" element={<Suspense fallback={<Spinner />}><AdminRoutes /></Suspense>} />
 
         </Routes>
     );

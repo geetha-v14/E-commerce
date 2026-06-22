@@ -5,12 +5,10 @@ import api from "../../api/api";
 const initialState = {
 
     user: null,
-
     loading: false,
-
     error: null,
-
     isAuthenticated: false,
+    authInitialized: false,
 };
 
 
@@ -226,11 +224,11 @@ const authSlice = createSlice({
             // FETCH USER
             .addCase(fetchCurrentUser.fulfilled, (state, action) => {
 
-                state.user =
-                    action.payload;
+                state.user = action.payload;
 
-                state.isAuthenticated =
-                    true;
+                state.isAuthenticated = true;
+
+                state.authInitialized = true;
 
             }
             )
@@ -241,6 +239,8 @@ const authSlice = createSlice({
 
                 state.isAuthenticated =
                     false;
+
+                state.authInitialized = true;
 
             }
             )

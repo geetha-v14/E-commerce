@@ -2,7 +2,7 @@ import React from "react";
 
 import { useParams } from "react-router-dom";
 
-import MainLayout from "../../layouts/MainLayout/MainLayout";
+import UserLayout from "../../layouts/User/UserLayout";
 
 import ProductGallery from "../../components/ProductDetails/ProductGallery";
 
@@ -42,7 +42,7 @@ const ProductDetailsPage = () => {
 
     return (
 
-      <MainLayout>
+      <UserLayout>
 
         <div className="product-loading">
 
@@ -50,7 +50,7 @@ const ProductDetailsPage = () => {
 
         </div>
 
-      </MainLayout>
+      </UserLayout>
 
     );
 
@@ -58,7 +58,7 @@ const ProductDetailsPage = () => {
 
   return (
 
-    <MainLayout>
+    <UserLayout>
 
       <div className="product-details-page container">
 
@@ -96,7 +96,7 @@ const ProductDetailsPage = () => {
 
       </div>
 
-    </MainLayout>
+    </UserLayout>
 
   );
 

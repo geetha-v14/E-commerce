@@ -4,7 +4,7 @@ import {
     useSelector,
 } from "react-redux";
 
-import MainLayout from "../../layouts/MainLayout/MainLayout";
+import UserLayout from "../../layouts/User/UserLayout";
 
 import CartHeader from "../../components/Cart/CartHeader";
 
@@ -41,7 +41,7 @@ const CartPage = () => {
 
     return (
 
-        <MainLayout>
+        <UserLayout>
 
             <div className="cart-page container">
 
@@ -96,7 +96,7 @@ const CartPage = () => {
 
             </div>
 
-        </MainLayout>
+        </UserLayout>
 
     );
 

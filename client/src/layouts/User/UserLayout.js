@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./MainLayout.css";
+import "./UserLayout.css";
 
 import Header from "../../components/Header/Header";
 
@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/Footer";
 
 
 
-const MainLayout = ({
+const UserLayout = ({
   children,
 }) => {
 
@@ -31,4 +31,4 @@ const MainLayout = ({
   );
 };
 
-export default MainLayout;
+export default UserLayout;

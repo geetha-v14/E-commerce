@@ -3,7 +3,7 @@ import React, {
     useState,
 } from "react";
 
-import MainLayout from "../../layouts/MainLayout/MainLayout";
+import UserLayout from "../../layouts/User/UserLayout";
 
 import HeroBanner from "../../components/Home/HeroBanner/HeroBanner";
 
@@ -65,7 +65,7 @@ const HomePage = () => {
 
     return (
 
-        <MainLayout>
+        <UserLayout>
 
             <HeroBanner />
 
@@ -104,7 +104,7 @@ const HomePage = () => {
                 }
             />
 
-        </MainLayout>
+        </UserLayout>
 
     );
 
