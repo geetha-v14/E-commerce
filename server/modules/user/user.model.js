@@ -49,7 +49,7 @@ const addressSchema = new mongoose.Schema(
       default: false,
     },
   },
-  
+
 );
 
 const userSchema = new mongoose.Schema(
@@ -125,6 +125,11 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
 
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
+
     resetPasswordToken: String,
 
     resetPasswordExpire: Date,
@@ -151,28 +156,28 @@ userSchema.pre("save", async function () {
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
 
-    return await bcrypt.compare(
-      enteredPassword,
-      this.password
-    );
+  return await bcrypt.compare(
+    enteredPassword,
+    this.password
+  );
 
 };
 
 userSchema.methods.generateResetToken = function () {
 
-    const resetToken = crypto
-      .randomBytes(32)
-      .toString("hex");
+  const resetToken = crypto
+    .randomBytes(32)
+    .toString("hex");
 
-    this.resetPasswordToken = crypto
-      .createHash("sha256")
-      .update(resetToken)
-      .digest("hex");
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
-    this.resetPasswordExpire =
-      Date.now() + 15 * 60 * 1000;
+  this.resetPasswordExpire =
+    Date.now() + 15 * 60 * 1000;
 
-    return resetToken;
+  return resetToken;
 
 };
 

@@ -4,6 +4,10 @@ const router = express.Router();
 
 const authMiddleware = require("../../middleware/authMiddleware");
 
+const roleMiddleware = require("../../middleware/roleMiddleware");
+
+const { getAllUsers, toggleUserBlock, getUserById, changeUserRole, getUserDetails } = require("./user.controller");
+
 const {
     addAddress,
     getAddresses,
@@ -34,5 +38,40 @@ router.delete(
     authMiddleware,
     deleteAddress
 );
+
+router.get(
+    "/admin/all",
+    authMiddleware,
+    roleMiddleware("admin"),
+    getAllUsers
+);
+
+router.get(
+    "/admin/:id",
+    authMiddleware,
+    roleMiddleware("admin"),
+    getUserById
+);
+router.get(
+    "/admin/:id",
+    authMiddleware,
+    roleMiddleware("admin"),
+    getUserDetails
+);
+router.patch(
+    "/admin/:id/block",
+    authMiddleware,
+    roleMiddleware("admin"),
+    toggleUserBlock
+);
+
+router.patch(
+    "/admin/:id/role",
+    authMiddleware,
+    roleMiddleware("admin"),
+    changeUserRole
+);
+
+
 
 module.exports = router;
