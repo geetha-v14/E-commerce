@@ -6,7 +6,8 @@ const authMiddleware = require("../../middleware/authMiddleware");
 
 const roleMiddleware = require("../../middleware/roleMiddleware")
 
-const { createOrder, getUserOrders, getOrderDetails, cancelOrder, getAllOrders, updateOrderStatus } = require("./order.controller");
+const { createOrder, getUserOrders, getOrderDetails, cancelOrder,
+    getAllOrders, updateOrderStatus, getAdminOrderDetails} = require("./order.controller");
 
 router.post(
     "/",
@@ -21,22 +22,31 @@ router.get(
 );
 
 router.get(
+    "/admin/all",
+    authMiddleware,
+    roleMiddleware("admin"),
+    getAllOrders
+);
+
+router.get(
+    "/admin/:orderId",
+    authMiddleware,
+    roleMiddleware("admin"),
+    getAdminOrderDetails
+);
+
+
+router.get(
     "/:orderId",
     authMiddleware,
     getOrderDetails
 );
 
+
 router.patch(
     "/:orderId/cancel",
     authMiddleware,
     cancelOrder
-);
-
-router.get(
-    "/admin/all",
-    authMiddleware,
-    roleMiddleware("admin"),
-    getAllOrders
 );
 
 router.patch(

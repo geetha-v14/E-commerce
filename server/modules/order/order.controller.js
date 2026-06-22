@@ -8,6 +8,7 @@ const ApiResponse = require("../../utils/ApiResponse");
 const { createOrderService,
     getOrderDetailsService,
     getUserOrdersService,
+    getAdminOrderDetailsService,
     cancelOrderService,
     getAllOrdersService,
     updateOrderStatusService
@@ -53,6 +54,27 @@ const getUserOrders = asyncHandler(async (req, res) => {
     );
 
 });
+
+
+const getAdminOrderDetails =
+    asyncHandler(
+        async (req, res) => {
+
+            const order =
+                await getAdminOrderDetailsService(
+                    req.params.orderId
+                );
+
+            return res.status(200).json(
+                new ApiResponse(
+                    200,
+                    order,
+                    "Order fetched"
+                )
+            );
+
+        }
+    );
 
 const getOrderDetails = asyncHandler(async (req, res) => {
 
@@ -137,4 +159,5 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 
     });
 
-module.exports = { createOrder, getUserOrders, getOrderDetails, cancelOrder , getAllOrders, updateOrderStatus};
+module.exports = { createOrder, getUserOrders, getOrderDetails, cancelOrder , getAllOrders, 
+    updateOrderStatus, getAdminOrderDetails};

@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { createProduct, getProducts, updateProduct, getSingleProduct, addProductReview,
-  getHomepageProducts, getRelatedProducts
+  getHomepageProducts, getRelatedProducts, getProductById,deleteProduct,
 } = require("./product.controller");
 
 const authMiddleware = require("../../middleware/authMiddleware");
@@ -37,9 +37,16 @@ router.get(
 
 router.post("/:id/reviews", authMiddleware, addProductReview);
 
-router.get("/homepage",getHomepageProducts);
+router.get("/homepage", getHomepageProducts);
 
 router.get("/:slug", getSingleProduct);
+
+router.get(
+  "/admin/:id",
+  authMiddleware,
+  authorizeRoles("admin"),
+  getProductById
+);
 
 router.put(
   "/:id",
@@ -47,6 +54,13 @@ router.put(
   authorizeRoles("admin"),
   upload.array("images", 5),
   updateProduct
+);
+
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorizeRoles("admin"),
+  deleteProduct
 );
 
 

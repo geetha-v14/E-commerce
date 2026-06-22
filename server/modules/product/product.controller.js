@@ -369,6 +369,32 @@ const getSingleProduct = asyncHandler(async (req, res) => {
 
 });
 
+const getProductById = asyncHandler(async (req, res) => {
+
+    const product =
+      await Product.findById(
+        req.params.id
+      );
+
+    if (!product) {
+
+      throw new ApiError(
+        404,
+        "Product not found"
+      );
+
+    }
+
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        product,
+        "Product fetched"
+      )
+    );
+
+  });
+
 const addProductReview = asyncHandler(async (req, res) => {
 
   const {
@@ -528,12 +554,54 @@ const getRelatedProducts =
   };
 
 
+  const deleteProduct =
+  asyncHandler(async (req, res) => {
+
+    const product =
+      await Product.findById(
+        req.params.id
+      );
+
+    if (!product) {
+
+      throw new ApiError(
+        404,
+        "Product not found"
+      );
+
+    }
+
+    for (const image of product.images) {
+
+      await deleteFromCloudinary(
+        image.public_id
+      );
+
+    }
+
+    await product.deleteOne();
+
+    return res.status(200).json(
+
+      new ApiResponse(
+        200,
+        null,
+        "Product deleted successfully"
+      )
+
+    );
+
+  });
+
+
 module.exports = {
   createProduct,
   getProducts,
   updateProduct,
+  getProductById,
   getSingleProduct,
   addProductReview,
   getHomepageProducts,
   getRelatedProducts,
+  deleteProduct,
 };

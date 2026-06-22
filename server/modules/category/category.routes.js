@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { createCategory, getAllCategories, updateCategory, deleteCategory, toggleCategoryStatus,
-  getMainCategories, getSubcategories , getCategoryBySlug
+  getMainCategories, getSubcategories, getCategoryBySlug, getCategoryById,
 } = require("./category.controller");
 
 const authMiddleware = require("../../middleware/authMiddleware");
@@ -31,6 +31,8 @@ router.get(
   getCategoryBySlug
 );
 
+
+
 router.get(
   "/main",
   getMainCategories
@@ -39,6 +41,13 @@ router.get(
 router.get(
   "/subcategories/:parentId",
   getSubcategories
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  authorizeRoles("admin"),
+  getCategoryById
 );
 
 router.get(

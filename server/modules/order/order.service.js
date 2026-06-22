@@ -80,7 +80,7 @@ const createOrderService =
 
                 image:
                     product.images?.[0]
-                        ?.url || "",
+                        ?.url || null,
 
                 price: item.price,
 
@@ -189,6 +189,30 @@ const getOrderDetailsService = async ({ userId, orderId, }) => {
             _id: orderId,
             user: userId,
         });
+
+    if (!order) {
+
+        throw new Error(
+            "Order not found"
+        );
+
+    }
+
+    return order;
+
+};
+
+
+const getAdminOrderDetailsService = async (
+    orderId
+) => {
+
+    const order =
+        await Order.findById(orderId)
+            .populate(
+                "user",
+                "name email"
+            );
 
     if (!order) {
 
@@ -332,6 +356,7 @@ module.exports = {
     createOrderService,
     getUserOrdersService,
     getOrderDetailsService,
+    getAdminOrderDetailsService,    
     cancelOrderService,
     getAllOrdersService,
     updateOrderStatusService,

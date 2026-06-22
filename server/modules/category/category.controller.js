@@ -57,20 +57,20 @@ const createCategory = asyncHandler(async (req, res) => {
 
   const category = await createCategoryService({
 
-      name,
+    name,
 
-      description,
+    description,
 
-      position,
+    position,
 
-      parentCategory,
+    parentCategory,
 
-      image: {
-        url: uploadedImage.secure_url,
-        public_id: uploadedImage.public_id,
-      },
+    image: {
+      url: uploadedImage.secure_url,
+      public_id: uploadedImage.public_id,
+    },
 
-    });
+  });
 
 
   return res.status(201).json(
@@ -124,6 +124,29 @@ const getAllCategories = asyncHandler(async (req, res) => {
 
 });
 
+const getCategoryById = asyncHandler(
+  async (req, res) => {
+
+    const category =
+      await Category.findById(
+        req.params.id
+      );
+
+    if (!category) {
+      throw new ApiError(
+        404,
+        "Category not found"
+      );
+    }
+
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        category,
+        "Category fetched"
+      )
+    );
+  });
 
 const updateCategory = asyncHandler(async (req, res) => {
 
@@ -146,6 +169,7 @@ const updateCategory = asyncHandler(async (req, res) => {
     description,
     position,
     isActive,
+    parentCategory,
   } = req.body;
 
 
@@ -196,8 +220,13 @@ const updateCategory = asyncHandler(async (req, res) => {
     category.position = position;
   }
 
+  if (parentCategory !== undefined) {
+    category.parentCategory =
+      parentCategory || null;
+  }
+
   if (isActive !== undefined) {
-    category.isActive = isActive;
+    category.isActive = isActive === "true";
   }
 
 
@@ -368,17 +397,19 @@ const getCategoryBySlug =
 
     );
 
-});
+  });
 
 
 
 module.exports = {
   createCategory,
+  getCategoryBySlug,
+  getMainCategories,
+  getSubcategories,
+  getCategoryById,
   getAllCategories,
   updateCategory,
   deleteCategory,
   toggleCategoryStatus,
-  getMainCategories,
-  getSubcategories,
-  getCategoryBySlug 
+  
 };
