@@ -5,51 +5,70 @@ const Sidebar = () => {
     {
       name: "Dashboard",
       path: "/admin",
+      icon: "bi-speedometer2",
     },
     {
       name: "Products",
       path: "/admin/products",
+      icon: "bi-box-seam",
     },
     {
       name: "Categories",
       path: "/admin/categories",
+      icon: "bi-grid",
     },
     {
       name: "Orders",
       path: "/admin/orders",
+      icon: "bi-bag-check",
     },
     {
       name: "Users",
       path: "/admin/users",
+      icon: "bi-people",
     },
   ];
 
   return (
     <div className="admin-sidebar">
 
-      <h4 className="mb-4">
-        MegaMart Admin
-      </h4>
+      <div className="px-3 mb-4">
 
-      <ul className="list-unstyled">
+        <h3 className="fw-bold text-dark mb-1">
+          MegaMart
+        </h3>
+
+        <small className="text-muted">
+          Admin 
+        </small>
+
+      </div>
+
+      <ul className="nav flex-column gap-2">
 
         {menuItems.map((item) => (
-          <li key={item.path} className="mb-2">
+
+          <li key={item.path} >
 
             <NavLink
               to={item.path}
+              end={item.path === "/admin"}
               className={({ isActive }) =>
-                `nav-link ${
-                  isActive
-                    ? "fw-bold text-primary"
-                    : ""
+                `d-flex align-items-center gap-3 px-3 py-2  text-decoration-none ${isActive
+                  ? "bg-dark text-white "
+                  : "text-dark"
                 }`
               }
             >
-              {item.name}
+
+              <i className={`bi ${item.icon}`}></i>
+
+              <span>{item.name}</span>
+
             </NavLink>
 
           </li>
+
         ))}
 
       </ul>

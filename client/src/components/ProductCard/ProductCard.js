@@ -5,8 +5,7 @@ import {
 } from "react-router-dom";
 
 import {
-    FaStar,
-
+   
     FaHeart,
 } from "react-icons/fa";
 

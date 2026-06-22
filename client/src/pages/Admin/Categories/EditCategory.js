@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import {
   useParams,
@@ -33,58 +33,37 @@ const EditCategory = () => {
       image: null,
     });
 
-  useEffect(() => {
-    loadCategory();
-
-    loadMainCategories();
+  const loadCategory = useCallback(async () => {
+    try {
+      const res = await categoryService.getCategoryById(id);
+      const category = res.data;
+      setFormData({
+        name: category.name || "",
+        description: category.description || "",
+        position: category.position || 0,
+        parentCategory: category.parentCategory || "",
+        image: null,
+      });
+      setExistingImage(category.image?.url || "");
+    } catch (error) {
+      console.log(error);
+    }
   }, [id]);
 
-  const loadCategory =
-    async () => {
-      try {
-        const res =
-          await categoryService.getCategoryById(
-            id
-          );
+  const loadMainCategories = useCallback(async () => {
+    try {
+      const res = await categoryService.getMainCategories();
+      setMainCategories(res.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-        const category =
-          res.data;
+  useEffect(() => {
+    loadCategory();
+    loadMainCategories();
+  }, [loadCategory, loadMainCategories]);
 
-        setFormData({
-          name:
-            category.name || "",
-          description:
-            category.description ||
-            "",
-          position:
-            category.position || 0,
-          parentCategory:
-            category.parentCategory ||
-            "",
-          image: null,
-        });
-
-        setExistingImage(
-          category.image?.url || ""
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-  const loadMainCategories =
-    async () => {
-      try {
-        const res =
-          await categoryService.getMainCategories();
-
-        setMainCategories(
-          res.data || []
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
   const handleChange = (e) => {
     const {
@@ -173,12 +152,14 @@ const EditCategory = () => {
         alert(
           error.response?.data
             ?.message ||
-            "Update Failed"
+          "Update Failed"
         );
       } finally {
         setLoading(false);
       }
     };
+
+
 
   return (
     <div className="container-fluid">
@@ -322,31 +303,31 @@ const EditCategory = () => {
               {existingImage &&
                 !previewImage && (
 
-                <div className="col-12 mb-3">
+                  <div className="col-12 mb-3">
 
-                  <label className="form-label">
-                    Current Image
-                  </label>
+                    <label className="form-label">
+                      Current Image
+                    </label>
 
-                  <div>
-                    <img
-                      src={
-                        existingImage
-                      }
-                      alt=""
-                      width="150"
-                      height="150"
-                      className="border rounded"
-                      style={{
-                        objectFit:
-                          "cover",
-                      }}
-                    />
+                    <div>
+                      <img
+                        src={
+                          existingImage
+                        }
+                        alt=""
+                        width="150"
+                        height="150"
+                        className="border rounded"
+                        style={{
+                          objectFit:
+                            "cover",
+                        }}
+                      />
+                    </div>
+
                   </div>
 
-                </div>
-
-              )}
+                )}
 
               {previewImage && (
 

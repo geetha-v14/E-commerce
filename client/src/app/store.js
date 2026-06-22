@@ -6,6 +6,7 @@ import dashboardReducer from "../features/dashboard/dashboardSlice";
 import productReducer from "../features/Admin/productSlice";
 import categoryReducer from "../features/Admin/categorySlice";
 import adminOrderReducer from "../features/Admin/orderSlice";
+import adminUserReducer from "../features/Admin/userSlice";
 
 export const store = configureStore({
 
@@ -24,6 +25,8 @@ export const store = configureStore({
     categories: categoryReducer,
 
     adminOrders: adminOrderReducer,
+
+    adminUsers: adminUserReducer,
 
   },
 });

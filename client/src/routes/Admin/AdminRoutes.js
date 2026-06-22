@@ -12,6 +12,8 @@ import CreateCategory from "../../pages/Admin/Categories/CreateCategory";
 import EditCategory from "../../pages/Admin/Categories/EditCategory";
 import OrderList from "../../pages/Admin/Orders/OrderList";
 import OrderDetails from "../../pages/Admin/Orders/OrderDetails";
+import UserList from "../../pages/Admin/Users/UserList";
+import UserDetails from "../../pages/Admin/Users/UserDetails";
 
 const AdminRoutes = () => {
     return (
@@ -29,6 +31,8 @@ const AdminRoutes = () => {
                     <Route path="categories/:id" element={<EditCategory />} />
                     <Route path="orders" element={<OrderList />} />
                     <Route path="orders/:orderId" element={<OrderDetails />} />
+                    <Route path="users" element={<UserList />} />
+                    <Route path="users/:id" element={<UserDetails/>}/>
 
                 </Route>
 
