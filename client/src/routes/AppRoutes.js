@@ -27,17 +27,18 @@ const AppRoutes = () => {
             <Route path="/" element={<Suspense fallback={<Spinner />}><HomePage /></Suspense>} />
             <Route path="/register" element={<Suspense fallback={<Spinner />}><RegisterPage /></Suspense>} />
             <Route path="/login" element={<Suspense fallback={<Spinner />}><LoginPage /></Suspense>} />
-            
+
 
             <Route element={<ProtectedRoute />}>
                 <Route path="/profile" element={<Suspense fallback={<Spinner />}><ProfilePage /></Suspense>} />
+                <Route path="/cart" element={<Suspense fallback={<Spinner />}><CartPage /></Suspense>} />
+                <Route path="/checkout" element={<Suspense fallback={<Spinner />}><CheckoutPage /></Suspense>} />
 
             </Route>
 
 
 
-            <Route path="/cart" element={<Suspense fallback={<Spinner />}><CartPage /></Suspense>} />
-            <Route path="/checkout" element={<Suspense fallback={<Spinner />}><CheckoutPage /></Suspense>} />
+
             <Route path="/category" element={<Suspense fallback={<Spinner />}><AllCategoriesPage /></Suspense>} />
             <Route path="/products" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
             <Route path="/category/:categorySlug" element={<Suspense fallback={<Spinner />}><CategoryProductsPage /></Suspense>} />
