@@ -50,7 +50,7 @@ MegaMart is a full-stack e-commerce application built using the MERN stack. It p
 * React Router DOM
 * Redux Toolkit
 * Axios
-* CSS3
+* CSS5
 
 ### Backend
 
