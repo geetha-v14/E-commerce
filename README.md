@@ -2,6 +2,7 @@
 
 MegaMart is a full-stack e-commerce application built using the MERN stack. It provides a complete online shopping experience with user authentication, product browsing, cart management, and an admin dashboard for managing products, categories, users, and orders.
 
+<img width="1900" height="1791" alt="megamart-ecommerce-website" src="https://github.com/user-attachments/assets/d4e28b2f-b5ba-46e8-8f8b-8693cdeda471" />
 
 
 
